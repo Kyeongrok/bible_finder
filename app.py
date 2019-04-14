@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from functools import wraps
 from flask_cors import CORS
 
-# import libs.bibleFinder as bf
+import libs.bibleFinder as bf
 
 # Default JSON encoder는 set를 JSON으로 변환할 수 없다.
 # 그러프로 커스텀 엔코더를 작성해서 set을 list로 변환하여
@@ -23,8 +23,9 @@ class CustomJSONEncoder(JSONEncoder):
         return JSONEncoder.default(self, o)
 
 
-# def makeMessage(row):
-#     return "{} {}".format(row['index'], row['text'])
+def makeMessage(row):
+    return "{} {}".format(row['index'], row['text'])
+
 # 유저 정보 가져오기
 def get_user(user_id):
     user = current_app.database.execute(
@@ -202,9 +203,9 @@ def create_app(test_config=None):
 
     @app.route("/ping", methods=["GET"])
     def ping():
-        # result = bf.findBetween("창",1, 2, 5)
-        # return result[0]['text']
-        return "pong"
+        result = bf.findBetween("창",1, 2, 5)
+        return result[0]['text']
+        # return "pong"
 
     @app.route("/sign-up", methods=["POST"])
     def sign_up():
