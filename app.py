@@ -198,7 +198,7 @@ def create_app(test_config=None):
 
     @app.route("/ping", methods=["GET"])
     def ping():
-        return "pong"
+        return "pong2"
 
     @app.route("/sign-up", methods=["POST"])
     def sign_up():

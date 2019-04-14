@@ -7,7 +7,7 @@
 * pip install -r requirements.txt
 * 실행되는 서버 확인: ps -ef | grep runserver
 * 서버 죽이기: kill codenumber
-
+* nohup python setup.py runserver --host=0.0.0.0 &
 
 
  
