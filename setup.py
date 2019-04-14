@@ -3,7 +3,7 @@ import sys
 from flask_script import Manager
 from app import create_app
 from flask_twisted import Twisted
-from twisted.py import log
+from twisted.python import log
 
 if __name__ == "__main__":
     app = create_app()

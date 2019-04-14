@@ -1,5 +1,6 @@
 import bcrypt
 import jwt
+
 from flask import Flask, jsonify, request, Response, current_app, g
 from flask.json import JSONEncoder
 from sqlalchemy import create_engine, text
