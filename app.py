@@ -202,8 +202,9 @@ def create_app(test_config=None):
 
     @app.route("/ping", methods=["GET"])
     def ping():
-        result = bf.findBetween("창",1, 2, 5)
-        return result[0]['text']
+        # result = bf.findBetween("창",1, 2, 5)
+        # return result[0]['text']
+        return "pong"
 
     @app.route("/sign-up", methods=["POST"])
     def sign_up():
