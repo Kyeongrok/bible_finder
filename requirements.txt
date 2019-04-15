@@ -18,7 +18,7 @@ cycler==0.10.0
 Django==2.1.7
 flask==1.0.2
 flask_cors==3.0.7
-flask_Script==2.0.6
+flask_script==2.0.6
 flask_twisted==0.1.2
 future==0.16.0
 hyperlink==19.0.0
