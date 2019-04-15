@@ -1,5 +1,5 @@
-import json
 import libs.bibleFinder as finder
+import os
 
 def makeMessage(row):
     return "{} {}".format(row['index'], row['text'])

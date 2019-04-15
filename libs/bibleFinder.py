@@ -1,8 +1,9 @@
 import json
 
-file = open("./gaeLines.json")
+import os
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+file = open(ROOT_DIR + "/gaeLines.json")
 bible = json.loads(file.read())
-
 
 def findByIndex(index):
     result = list(filter(lambda x: x['index']==index, bible))
