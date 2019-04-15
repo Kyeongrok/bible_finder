@@ -201,11 +201,11 @@ def create_app(test_config=None):
     database = create_engine(app.config["DB_URL"], encoding="utf-8", max_overflow=0)
     app.database = database
 
-    @app.route("/ping", methods=["GET"])
-    def ping():
-        result = bf.findBetween("창",1, 2, 5)
-        return result[0]['text']
-        # return "pong"
+    @app.route("/find-single/<string:index>", methods=["GET"])
+    def ping(index):
+        # result = bf.findBetween("창",1, 2, 5)
+        # return result[0]['text']
+        return index
 
     @app.route("/sign-up", methods=["POST"])
     def sign_up():
@@ -219,26 +219,6 @@ def create_app(test_config=None):
 
         return jsonify(new_user)
 
-    @app.route("/login", methods=["POST"])
-    def login():
-        credential = request.json
-        email = credential["email"]
-        password = credential["password"]
-        user_credential = get_user_id_and_password(email)
-
-        if user_credential and bcrypt.checkpw(
-            password.encode("UTF-8"), user_credential["hashed_password"].encode("UTF-8")
-        ):
-            user_id = user_credential["id"]
-            payload = {
-                "user_id": user_id,
-                "exp": datetime.utcnow() + timedelta(seconds=60 * 60 * 24),
-            }
-            token = jwt.encode(payload, app.config["JWT_SECRET_KEY"], "HS256")
-
-            return jsonify({"user_id": user_id, "access_token": token.decode("UTF-8")})
-        else:
-            return "", 401
 
     @app.route("/tweet", methods=["POST"])
     @login_required
