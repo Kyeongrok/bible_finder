@@ -205,7 +205,8 @@ def create_app(test_config=None):
     def ping(index):
         # result = bf.findBetween("창",1, 2, 5)
         # return result[0]['text']
-        return index
+        result = bf.findByIndex(index)
+        return makeMessage(result[0])
 
     @app.route("/sign-up", methods=["POST"])
     def sign_up():
