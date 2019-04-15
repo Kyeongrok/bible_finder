@@ -72,121 +72,6 @@ def get_user_id_and_password(email):
     return {"id": row["id"], "hashed_password": row["hashed_password"]} if row else None
 
 
-def insert_user(user):
-    return current_app.database.execute(
-        text(
-            """
-        INSERT INTO users (
-            name,
-            email,
-            profile,
-            hashed_password
-        ) VALUES (
-            :name,
-            :email,
-            :profile,
-            :password   
-            )
-        """
-        ),
-        user,
-    ).lastrowid  # lasrowid 란
-
-
-def insert_tweet(user_tweet):
-    return current_app.database.execute(
-        text(
-            """
-        INSERT INTO tweets (
-            user_id,
-            tweet
-        ) VALUES (
-            :id,
-            :tweet   
-            )
-        """
-        ),
-        user_tweet,
-    ).rowcount  # rowcount 란
-
-
-def insert_follow(user_follow):
-    return current_app.database.execute(
-        text(
-            """
-        INSERT INTO users_follow_list (
-            user_id,
-            follow_user_id
-        ) VALUES (
-            :id,
-            :follow   
-            )
-        """
-        ),
-        user_follow,
-    ).rowcount
-
-
-def insert_unfollow(user_unfollow):
-    return current_app.database.execute(
-        text(
-            """
-        DELETE FROM users_follow_list
-        WHERE user_id = :id
-        AND follow_user_id = :unfollow
-         """
-        ),
-        user_unfollow,
-    ).rowcount
-
-
-def get_timeline(user_id):
-    timeline = current_app.database.execute(
-        text(
-            """
-        SELECT
-            t.user_id,
-            t.tweet
-        FROM tweets t
-        LEFT JOIN users_follow_list ufl ON ufl.user_id = :user_id
-        WHERE t.user_id = :user_id
-        OR t.user_id = ufl.follow_user_id
-        """
-        ),
-        {"user_id": user_id},
-    ).fetchall()
-
-    return [
-        {"user_id": tweet["user_id"], "tweet": tweet["tweet"]} for tweet in timeline
-    ]
-
-
-##### Decorator #####
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        access_token = request.headers.get("Authorization")
-        if access_token is not None:
-            try:
-                payload = jwt.decode(
-                    access_token, current_app.config["JWT_SECRET_KEY"], "HS256"
-                )
-            except jwt.InvalidTokenError:
-                payload = None
-            if payload is None:
-                return Response(status=401)
-
-            user_id = payload["user_id"]
-            g.user_id = user_id
-            g.user = get_user(user_id) if user_id else None
-        else:
-            return Response(status=401)
-
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
 def create_app(test_config=None):
     app = Flask(__name__)
 
@@ -208,17 +93,7 @@ def create_app(test_config=None):
         result = bf.findByIndex(index)
         return makeMessage(result[0])
 
-    @app.route("/unfollow", methods=["POST"])
-    @login_required
-    def unfollow():
-        payload = request.json
-        insert_unfollow(payload)
 
-        return "", 200
-
-    @app.route("/timeline/<int:user_id>", methods=["GET"])
-    def timeline(user_id):
-        return jsonify({"user_id": user_id, "timeline": get_timeline(user_id)})
 
 
     return app
