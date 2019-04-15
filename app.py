@@ -23,8 +23,8 @@ class CustomJSONEncoder(JSONEncoder):
         return JSONEncoder.default(self, o)
 
 
-def makeMessage(row):
-    return "{} {}".format(row['index'], row['text'])
+def makeHtmlMessage(row):
+    return "<html><body>{} {}</body></html>".format(row['index'], row['text'])
 
 # 유저 정보 가져오기
 def get_user(user_id):
@@ -91,7 +91,7 @@ def create_app(test_config=None):
         # result = bf.findBetween("창",1, 2, 5)
         # return result[0]['text']
         result = bf.findByIndex(index)
-        return makeMessage(result[0])
+        return makeHtmlMessage(result[0])
 
 
 
