@@ -208,41 +208,6 @@ def create_app(test_config=None):
         result = bf.findByIndex(index)
         return makeMessage(result[0])
 
-    @app.route("/sign-up", methods=["POST"])
-    def sign_up():
-        new_user = request.json
-        new_user["password"] = bcrypt.hashpw(
-            new_user["password"].encode("UTF-8"), bcrypt.gensalt()
-        )
-
-        new_user_id = insert_user(new_user)
-        new_user = get_user(new_user_id)
-
-        return jsonify(new_user)
-
-
-    @app.route("/tweet", methods=["POST"])
-    @login_required
-    def tweet():
-        user_tweet = request.json
-        user_tweet["id"] = g.user_id
-        tweet = user_tweet["tweet"]
-
-        if len(tweet) > 300:
-            return "300자를 초과 했습니다", 400
-
-        insert_tweet(user_tweet)
-
-        return "", 200
-
-    @app.route("/follow", methods=["POST"])
-    @login_required
-    def follow():
-        payload = request.json
-        insert_follow(payload)
-
-        return "", 200
-
     @app.route("/unfollow", methods=["POST"])
     @login_required
     def unfollow():
@@ -255,11 +220,6 @@ def create_app(test_config=None):
     def timeline(user_id):
         return jsonify({"user_id": user_id, "timeline": get_timeline(user_id)})
 
-    @app.route("/timeline", methods=["GET"])
-    @login_required
-    def user_timeline():
-        user_id = g.user_id
-        return jsonify({"user_id": user_id, "timeline": get_timeline(user_id)})
 
     return app
 
