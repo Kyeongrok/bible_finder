@@ -50,7 +50,7 @@ def create_app(test_config=None):
 
 
     @app.route("/find-between/<string:book>/<string:chapter>", methods=["GET"])
-    def ping(index, chapter):
+    def findBetween(index, chapter):
         result = bf.findBetween("창",1, 2, 5)
         # return result[0]['text']
         # result = bf.findByIndex(index)
