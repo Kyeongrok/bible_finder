@@ -49,13 +49,14 @@ def create_app(test_config=None):
         return makeHtmlMessage(result[0])
 
 
-    @app.route("/find-between/<string:book>/<string:chapter>", methods=["GET"])
-    def findBetween(index, chapter):
+    @app.route("/find-between", methods=["GET"])
+    def findBetween():
+        book = request.args.get('book', default="창", type=str)
         result = bf.findBetween("창",1, 2, 5)
         # return result[0]['text']
         # result = bf.findByIndex(index)
 
-        return index + chapter
+        return book
 
 
     return app
