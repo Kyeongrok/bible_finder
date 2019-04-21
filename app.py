@@ -26,51 +26,6 @@ class CustomJSONEncoder(JSONEncoder):
 def makeHtmlMessage(row):
     return "<html><body>{} {}</body></html>".format(row['index'], row['text'])
 
-# 유저 정보 가져오기
-def get_user(user_id):
-    user = current_app.database.execute(
-        text(
-            """
-        SELECT
-        id,
-        name,
-        email,
-        profile
-        FROM users
-        WHERE id = :user_id   
-    """
-        ),
-        {"user_id": user_id},
-    ).fetchone()
-
-    return (
-        {
-            "id": user["id"],
-            "name": user["name"],
-            "email": user["email"],
-            "profile": user["profile"],
-        }
-        if user
-        else None
-    )
-
-
-def get_user_id_and_password(email):
-    row = current_app.database.execute(
-        text(
-            """
-        SELECT 
-            id,
-            hashed_password
-        FROM users
-        WHERE email = :email
-    """
-        ),
-        {"email": email},
-    ).fetchone()
-
-    return {"id": row["id"], "hashed_password": row["hashed_password"]} if row else None
-
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -94,6 +49,13 @@ def create_app(test_config=None):
         return makeHtmlMessage(result[0])
 
 
+    @app.route("/find-between/<string:book>/<string:chapter>", methods=["GET"])
+    def ping(index, chapter):
+        result = bf.findBetween("창",1, 2, 5)
+        # return result[0]['text']
+        # result = bf.findByIndex(index)
+
+        return index + chapter
 
 
     return app
