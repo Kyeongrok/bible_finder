@@ -65,8 +65,8 @@ def create_app(test_config=None):
     def findBetween():
         book = request.args.get('book', default="창", type=str)
         chapter = request.args.get('chapter', default=1, type=int)
-        verseFrom = request.args.get('chapter', default=1, type=int)
-        verseTo = request.args.get('chapter', default=1, type=int)
+        verseFrom = request.args.get('verseFrom', default=1, type=int)
+        verseTo = request.args.get('verseTo', default=1, type=int)
         verses = bf.findBetween(book, chapter, verseFrom, verseTo)
         return makeTable(verses)
 
