@@ -26,6 +26,18 @@ class CustomJSONEncoder(JSONEncoder):
 def makeHtmlMessage(row):
     return "<html><body>{} {}</body></html>".format(row['index'], row['text'])
 
+def makeTr(verse):
+    index = "{}".format(verse['book'])
+    return "<tr><td>{}</td><td>{}</td></tr>".format(index, verse['message'])
+
+
+def makeTable(verses):
+    head = "<html><body><table>"
+    tbody = ""
+    for verse in verses:
+        tbody = tbody + makeTr(verse)
+    tail = "</table></body></html>"
+    return head + tbody + tail
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -52,11 +64,11 @@ def create_app(test_config=None):
     @app.route("/find-between", methods=["GET"])
     def findBetween():
         book = request.args.get('book', default="창", type=str)
-        result = bf.findBetween("창",1, 2, 5)
-        # return result[0]['text']
-        # result = bf.findByIndex(index)
-
-        return book
+        chapter = request.args.get('chapter', default=1, type=int)
+        verseFrom = request.args.get('chapter', default=1, type=int)
+        verseTo = request.args.get('chapter', default=1, type=int)
+        verses = bf.findBetween(book, chapter, verseFrom, verseTo)
+        return makeTable(verses)
 
 
     return app
