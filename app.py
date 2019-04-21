@@ -9,6 +9,7 @@ from functools import wraps
 from flask_cors import CORS
 
 import libs.bibleFinder as bf
+from libs.htmlMaker import makeTable
 
 # Default JSON encoder는 set를 JSON으로 변환할 수 없다.
 # 그러프로 커스텀 엔코더를 작성해서 set을 list로 변환하여
@@ -22,22 +23,6 @@ class CustomJSONEncoder(JSONEncoder):
 
         return JSONEncoder.default(self, o)
 
-
-def makeHtmlMessage(row):
-    return "<html><body>{} {}</body></html>".format(row['index'], row['text'])
-
-def makeTr(verse):
-    index = "{}".format(verse['shortendBookName'])
-    return "<tr><td>{}</td><td>{}</td></tr>".format(index, verse['message'])
-
-
-def makeTable(verses):
-    head = "<html><body><table>"
-    tbody = ""
-    for verse in verses:
-        tbody = tbody + makeTr(verse)
-    tail = "</table></body></html>"
-    return head + tbody + tail
 
 def create_app(test_config=None):
     app = Flask(__name__)
