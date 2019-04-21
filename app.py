@@ -27,7 +27,7 @@ def makeHtmlMessage(row):
     return "<html><body>{} {}</body></html>".format(row['index'], row['text'])
 
 def makeTr(verse):
-    index = "{}".format(verse['book'])
+    index = "{}".format(verse['shortendBookName'])
     return "<tr><td>{}</td><td>{}</td></tr>".format(index, verse['message'])
 
 
