@@ -46,6 +46,19 @@ def create_app(test_config=None):
         result = bf.findByIndex(index)
         return makeTr(result[0])
 
+    @app.route("/json/find-single/<string:index>", methods=["GET"])
+    def ping(index):
+        result = bf.findByIndex(index)
+        return result[0]
+
+    @app.route("/json/find-between", methods=["GET"])
+    def findBetween():
+        book = request.args.get('book', default="창", type=str)
+        chapter = request.args.get('chapter', default=1, type=int)
+        verseFrom = request.args.get('verseFrom', default=1, type=int)
+        verseTo = request.args.get('verseTo', default=1, type=int)
+        verses = bf.findBetween(book, chapter, verseFrom, verseTo)
+        return verses
 
     @app.route("/find-between", methods=["GET"])
     def findBetween():
