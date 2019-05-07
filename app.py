@@ -40,14 +40,14 @@ def create_app(test_config=None):
     app.database = database
 
     @app.route("/find-single/<string:index>", methods=["GET"])
-    def ping(index):
+    def jsonSingle(index):
         # result = bf.findBetween("창",1, 2, 5)
         # return result[0]['text']
         result = bf.findByIndex(index)
         return makeTr(result[0])
 
     @app.route("/json/find-single/<string:index>", methods=["GET"])
-    def ping(index):
+    def jsonFindBetween(index):
         result = bf.findByIndex(index)
         return result[0]
 
