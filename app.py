@@ -40,19 +40,19 @@ def create_app(test_config=None):
     app.database = database
 
     @app.route("/find-single/<string:index>", methods=["GET"])
-    def jsonSingle(index):
+    def findSingle(index):
         # result = bf.findBetween("창",1, 2, 5)
         # return result[0]['text']
         result = bf.findByIndex(index)
         return makeTr(result[0])
 
     @app.route("/json/find-single/<string:index>", methods=["GET"])
-    def jsonFindBetween(index):
+    def jsonFindSingle(index):
         result = bf.findByIndex(index)
         return result[0]
 
     @app.route("/json/find-between", methods=["GET"])
-    def findBetween():
+    def jsonFindBetween():
         book = request.args.get('book', default="창", type=str)
         chapter = request.args.get('chapter', default=1, type=int)
         verseFrom = request.args.get('verseFrom', default=1, type=int)
