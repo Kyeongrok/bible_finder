@@ -1,12 +1,10 @@
-import bcrypt
-import jwt
-
 from flask import Flask, jsonify, request, Response, current_app, g
 from flask.json import JSONEncoder
 from sqlalchemy import create_engine, text
 from datetime import datetime, timedelta
 from functools import wraps
 from flask_cors import CORS
+import json
 
 import libs.bibleFinder as bf
 from libs.htmlMaker import makeTable
@@ -49,7 +47,7 @@ def create_app(test_config=None):
     @app.route("/json/find-single/<string:index>", methods=["GET"])
     def jsonFindSingle(index):
         result = bf.findByIndex(index)
-        return result[0]
+        return json.dumps(result[0])
 
     @app.route("/json/find-between", methods=["GET"])
     def jsonFindBetween():
@@ -58,7 +56,7 @@ def create_app(test_config=None):
         verseFrom = request.args.get('verseFrom', default=1, type=int)
         verseTo = request.args.get('verseTo', default=1, type=int)
         verses = bf.findBetween(book, chapter, verseFrom, verseTo)
-        return verses
+        return json.dumps(verses)
 
     @app.route("/find-between", methods=["GET"])
     def findBetween():
