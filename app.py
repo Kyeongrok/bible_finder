@@ -1,14 +1,13 @@
 from flask import Flask, jsonify, request, Response, current_app, g
 from flask.json import JSONEncoder
 from sqlalchemy import create_engine, text
-from datetime import datetime, timedelta
-from functools import wraps
 from flask_cors import CORS
 import json
 
 import libs.bibleFinder as bf
 from libs.htmlMaker import makeTable
 from libs.htmlMaker import makeTr
+import random
 
 # Default JSON encoder는 set를 JSON으로 변환할 수 없다.
 # 그러프로 커스텀 엔코더를 작성해서 set을 list로 변환하여
@@ -43,6 +42,10 @@ def create_app(test_config=None):
         # return result[0]['text']
         result = bf.findByIndex(index)
         return makeTr(result[0])
+
+    @app.route("/remember", methods=["GET"])
+    def remember():
+        return random.randint(1, 12)
 
     @app.route("/json/find-single/<string:index>", methods=["GET"])
     def jsonFindSingle(index):
