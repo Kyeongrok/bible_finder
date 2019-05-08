@@ -55,7 +55,7 @@ def create_app(test_config=None):
 
 
     @app.route("/remember/answer", methods=["POST"])
-    def remember():
+    def rememberAnswer():
         num = {"num":random.randint(1, 12)}
         return json.dumps(num)
 
