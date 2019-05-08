@@ -45,7 +45,8 @@ def create_app(test_config=None):
 
     @app.route("/remember", methods=["GET"])
     def remember():
-        return random.randint(1, 12)
+        num = {"num":random.randint(1, 12)}
+        return json.dumps(num)
 
     @app.route("/json/find-single/<string:index>", methods=["GET"])
     def jsonFindSingle(index):
