@@ -5,6 +5,9 @@ from flask_cors import CORS
 import json
 
 import libs.bibleFinder as bf
+from service.remember.validator import validate
+from service.remember.validator import list
+
 from libs.htmlMaker import makeTable
 from libs.htmlMaker import makeTr
 import random
@@ -44,6 +47,14 @@ def create_app(test_config=None):
         return makeTr(result[0])
 
     @app.route("/remember", methods=["GET"])
+    def remember():
+        num = random.randrange(0, len(list))
+        dict = list[num]
+        dict['index'] = num
+        return json.dumps(dict)
+
+
+    @app.route("/remember/answer", methods=["POST"])
     def remember():
         num = {"num":random.randint(1, 12)}
         return json.dumps(num)

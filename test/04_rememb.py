@@ -1,5 +1,5 @@
-from libs.remember.validator import validate
-from libs.remember.validator import list
+from service.remember.validator import validate
+from service.remember.validator import list
 import random
 num = random.randrange(0, len(list))
 
