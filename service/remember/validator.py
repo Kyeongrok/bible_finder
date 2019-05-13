@@ -11,10 +11,15 @@ list = [
     {"week":5, "addr":"시119:33", "text":"여호와여 주의 율례들의 도를 내게 가르치소서 내가 끝까지 지키리이다"},
 ]
 
+week11List = [
+    {"week":11, "addr":"창1:26", "text":"하나님이 이르시되 우리의 형상을 따라 우리의 모양대로 우리가 사람을 만들고 그들로 바다의 물고기와 하늘의 새와 가축과 온 땅과 땅에 기는 모든 것을 다스리게 하자 하시고"},
+    {"week":11, "addr":"고후5:17", "text":"그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다"}
+]
+
 def validate(num, addr, answer):
-    if(list[num]['addr'] == addr and list[num]['text'] == answer):
+    if(week11List[num]['addr'] == addr and week11List[num]['text'] == answer):
         print("{} {} pass".format(num, addr))
         return True
     else:
-        print("fail {} {}", addr, list[num]['text'])
+        print("fail {} {}", addr, week11List[num]['text'])
         return False
