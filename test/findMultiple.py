@@ -2,11 +2,8 @@ import libs.bibleFinder as finder
 from libs.bibleMessageMaker import makeMessage
 from libs.htmlMaker import makeTable
 
-res = finder.findBetween("마",6,33,33)
-print(res[0])
+res = finder.findBetween("민",3,5,13)
 
-print(makeMessage(res[0]))
-
-table = makeTable(res)
-print(table)
+for re in res:
+    print(re['index'], re['text'])
 
