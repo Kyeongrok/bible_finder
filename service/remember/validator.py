@@ -1,4 +1,4 @@
-list = [
+beforeList = [
     {"week":1, "addr":"갈2:20", "text":"내가 그리스도와 함께 십자가에 못박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 있는 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위해 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라."},
     {"week":1, "addr":"마16:24-25", "text":"이에 예수께서 제자들에게 이르시되 누구든지 나를 따라오려거든 자기를 부인하고 자기 십자가를 지고 나를 따를 것이니라 누구든지 제 목숨을 구원하고자 하면 잃을 것이요 누구든지 나를 위하여 제 목숨을 잃으면 찾으리라"},
     {"week":2, "addr":"엡4:15", "text":"오직 사랑 안에서 참된 것을 하여 범사에 그에게까지 자랄지라 그는 머리니 곧 그리스도라"},
@@ -11,15 +11,15 @@ list = [
     {"week":5, "addr":"시119:33", "text":"여호와여 주의 율례들의 도를 내게 가르치소서 내가 끝까지 지키리이다"},
 ]
 
-week11List = [
+list = [
     {"week":11, "addr":"창1:26", "text":"하나님이 이르시되 우리의 형상을 따라 우리의 모양대로 우리가 사람을 만들고 그들로 바다의 물고기와 하늘의 새와 가축과 온 땅과 땅에 기는 모든 것을 다스리게 하자 하시고"},
     {"week":11, "addr":"고후5:17", "text":"그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다"}
 ]
 
 def validate(num, addr, answer):
-    if(week11List[num]['addr'] == addr and week11List[num]['text'] == answer):
+    if(list[num]['addr'] == addr and list[num]['text'] == answer):
         print("{} {} pass".format(num, addr))
         return True
     else:
-        print("fail {} {}", addr, week11List[num]['text'])
+        print("fail {} {}", addr, list[num]['text'])
         return False
