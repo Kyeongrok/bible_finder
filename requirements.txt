@@ -12,7 +12,7 @@ cffi==1.12.2
 chardet==3.0.4
 Click==7.0
 constantly==15.1.0
-cryptography==2.6.1
+cryptography==3.2
 cycler==0.10.0
 flask==1.0.2
 flask_cors==3.0.7
